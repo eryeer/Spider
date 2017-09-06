@@ -1,7 +1,6 @@
 package cn.mlb.spider.sourceGraber;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
@@ -12,6 +11,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.apache.log4j.Logger;
 
 /**
  * 这个类用来获取网页的html全部内容
@@ -20,6 +20,8 @@ import org.apache.http.util.EntityUtils;
  * 
  */
 public class HtmlGrabber {
+	private Logger logger = Logger.getLogger(HtmlGrabber.class);
+
 	/**
 	 * 
 	 * @param urls
@@ -37,10 +39,9 @@ public class HtmlGrabber {
 		// 创建httpClient对象
 		CloseableHttpClient httpClient = HttpClients.custom()
 				.setDefaultRequestConfig(config).build();
-		System.out.println("开始抓取网页,共" + urls.length + "页");
+		logger.info("开始抓取网页,共" + urls.length + "页");
 		for (int i = 0; i < urls.length; i++) {
-			System.out
-					.println(new Date().toString() + ",开始抓取第" + (i + 1) + "页");
+			logger.info("开始抓取第" + (i + 1) + "页");
 			// 创建一次get请求
 			HttpGet httpGet = new HttpGet(urls[i]);
 			// 伪装真实浏览器设置请求头
@@ -56,7 +57,7 @@ public class HtmlGrabber {
 				Thread.sleep(sleepTime);
 				// 执行抓取
 				CloseableHttpResponse response = httpClient.execute(httpGet);
-				System.out.println(response.getStatusLine());
+				logger.info(response.getStatusLine());
 				// 获得response响应实体
 				HttpEntity entity = response.getEntity();
 				// 将实体转为html文本

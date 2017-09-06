@@ -3,6 +3,8 @@ package cn.mlb.spider.executorSample;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import cn.mlb.spider.sourceGraber.HtmlGrabber;
 import cn.mlb.spider.sourceGraber.HtmlParser;
 import cn.mlb.spider.sourceGraber.ImgDownloader;
@@ -14,6 +16,7 @@ import cn.mlb.spider.sourceGraber.ImgDownloader;
  * 
  */
 public class MeizituExecutor {
+	private static Logger logger = Logger.getLogger(MeizituExecutor.class);
 
 	/**
 	 * 这个是执行下载图片的模板类
@@ -25,19 +28,19 @@ public class MeizituExecutor {
 		// 创建网页抓取器
 		HtmlGrabber grabber = new HtmlGrabber();
 		// 创建url数组
-		String[] urls = new String[30];
+		String[] urls = new String[21];
 		// 创建图片页链接集合
 		List<String> urlTotalList = new ArrayList<String>();
 		// 为url数组赋值
 		for (int i = 0; i < urls.length; i++) {
-			urls[i] = "http://www.meizitu.com/a/more_" + (i + 1 + 30) + ".html";
+			urls[i] = "http://www.meizitu.com/a/more_" + (i + 1 + 51) + ".html";
 		}
-		System.out.println("正在获取每个索引页");
+		logger.info("正在获取每个索引页");
 		// 抓取索引页
 		List<String> htmls = grabber.getHtmls(urls, 100);
 		// 创建网页解析器
 		HtmlParser parser = new HtmlParser();
-		System.out.println("正在获取索引页上的所有图片页链接");
+		logger.info("正在获取索引页上的所有图片页链接");
 		// 解析索引页,获取所有图片页链接
 		for (int i = 0; i < htmls.size(); i++) {
 			List<String> urlList = parser.getAttrList(htmls.get(i),
@@ -45,20 +48,19 @@ public class MeizituExecutor {
 			urlTotalList.addAll(urlList);
 		}
 		String[] totalUrls = urlTotalList.toArray(new String[1]);
-		System.out.println("正在获取每个图片页");
+		logger.info("正在获取每个图片页");
 		// 抓取所有图片页
-		List<String> totalHtmls = grabber.getHtmls(totalUrls, 50);
-		System.out.println("获取完毕");
-
+		List<String> totalHtmls = grabber.getHtmls(totalUrls, 100);
+		logger.info("获取完毕");
 		for (int i = 0; i < totalHtmls.size(); i++) {
 			// 解析图片页,获取图片链接集合
 			List<String> srcList = parser.getAttrList(totalHtmls.get(i),
 					".postContent #picture img", "src");
-			System.out.println("第" + (i + 1) + "图片页链接解析完毕");
+			logger.info("第" + (i + 1) + "图片页链接解析完毕");
 			// 开启多线程下载图片
 			for (String src : srcList) {
 				Thread.sleep(1500);
-				new Thread(new ImgDownloader(src, i / 10, "D:/meizitu"))
+				new Thread(new ImgDownloader(src, i / 10, "D:/meizitu/test"))
 						.start();
 			}
 			// 间隔时间要设长一些,否则会被服务器封IP!

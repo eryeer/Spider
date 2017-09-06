@@ -8,6 +8,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * 这是一个用来下载图片的类,由于下载图片比较耗时,所以支持了多线程下载.
@@ -24,6 +25,7 @@ public class ImgDownloader implements Runnable {
 	private StringBuffer basePath;
 	// 图片防盗链
 	private String referer;
+	private Logger logger = Logger.getLogger(ImgDownloader.class);
 
 	public ImgDownloader() {
 	}
@@ -56,7 +58,7 @@ public class ImgDownloader implements Runnable {
 		File folder = new File(basePath.toString());
 		if (!folder.exists()) {
 			folder.mkdirs();
-			System.out.println("图片存放于" + basePath + "目录下");
+			logger.info("图片存放于" + basePath + "目录下");
 		}
 		// UUID图片名
 		// String imgName = UUID.randomUUID().toString().replaceAll("-", "")
@@ -98,9 +100,7 @@ public class ImgDownloader implements Runnable {
 
 			bis.close();
 			bos.close();
-			System.out.println("第" + (count++) + "张图片："
-					+ file.getAbsolutePath());
-
+			logger.info("第" + (count++) + "张图片：" + file.getAbsolutePath());
 		} catch (Exception e) {
 
 			e.printStackTrace();
