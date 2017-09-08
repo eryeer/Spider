@@ -4,10 +4,12 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.net.URL;
-import java.net.URLConnection;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.log4j.Logger;
 
 /**
@@ -66,31 +68,26 @@ public class ImgDownloader implements Runnable {
 		String imgName = System.currentTimeMillis() + ".jpg";// 以系统时间设置图片名
 		File file = new File(basePath + "/" + imgName);
 		try {
-			// 创建url对象
-			URL url = new URL(imgSrc);
-			// 创建连接
-			URLConnection conn = url.openConnection();
-			// 设置conn
-			conn.setConnectTimeout(16000);
-			conn.setReadTimeout(90000);
-			// 配置请求头,伪装浏览器
-			conn.setRequestProperty("cache-control", "max-age=0");
-			conn.setRequestProperty("upgrade-insecure-requests", "1");
-			conn.setRequestProperty("accept-encoding", "gzip, deflate");
-			conn.setRequestProperty("accept-language", "zh-CN,zh;q=0.8");
-			conn.setRequestProperty("connection", "Keep-Alive");
-			conn.setRequestProperty(
-					"user-agent",
+			HttpClient httpClient = SingleHttpClient.getHttpClient();
+			// 创建一次get请求
+			HttpGet httpGet = new HttpGet(imgSrc);
+			// 伪装真实浏览器设置请求头
+			httpGet.addHeader(
+					"User-Agent",
 					"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36");
-			// 设置防盗链
+			httpGet.addHeader("cache-control", "max-age=0");
+			httpGet.addHeader("upgrade-insecure-requests", "1");
+			httpGet.addHeader("accept-language", "zh-CN,zh;q=0.8");
+			httpGet.addHeader("accept-encoding", "gzip, deflate");
 			if (!StringUtils.isBlank(this.referer)) {
-				conn.setRequestProperty("referer", this.referer);
+				httpGet.addHeader("referer", this.referer);
 			}
-			// 开启连接
-			conn.connect();
+			HttpResponse response = httpClient.execute(httpGet);
+			logger.info(response.getStatusLine());
+			HttpEntity entity = response.getEntity();
 			// 下载图片
 			BufferedInputStream bis = new BufferedInputStream(
-					conn.getInputStream());
+					entity.getContent());
 			BufferedOutputStream bos = new BufferedOutputStream(
 					new FileOutputStream(file));
 			int b;

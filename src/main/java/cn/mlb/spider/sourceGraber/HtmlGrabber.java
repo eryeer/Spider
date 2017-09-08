@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpEntity;
-import org.apache.http.client.config.CookieSpecs;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 
@@ -32,13 +29,7 @@ public class HtmlGrabber {
 	 */
 	public List<String> getHtmls(String[] urls, int sleepTime) {
 		List<String> htmls = new ArrayList<String>();
-		// 配置请求
-		RequestConfig config = RequestConfig.custom()
-				.setConnectionRequestTimeout(10000).setConnectTimeout(10000)
-				.setCookieSpec(CookieSpecs.STANDARD).build();
-		// 创建httpClient对象
-		CloseableHttpClient httpClient = HttpClients.custom()
-				.setDefaultRequestConfig(config).build();
+		HttpClient httpClient = SingleHttpClient.getHttpClient();
 		logger.info("开始抓取网页,共" + urls.length + "页");
 		for (int i = 0; i < urls.length; i++) {
 			logger.info("开始抓取第" + (i + 1) + "页");
@@ -56,7 +47,7 @@ public class HtmlGrabber {
 			try {
 				Thread.sleep(sleepTime);
 				// 执行抓取
-				CloseableHttpResponse response = httpClient.execute(httpGet);
+				HttpResponse response = httpClient.execute(httpGet);
 				logger.info(response.getStatusLine());
 				// 获得response响应实体
 				HttpEntity entity = response.getEntity();
