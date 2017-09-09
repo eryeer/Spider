@@ -20,9 +20,8 @@ public class Imgtest {
 	public static void main(String[] args) {
 		// simpleSpider("D:/meizitu/test",
 		// "http://i.meizitu.net/2017/09/05a01.jpg");
-		httpClientSpider(
-				"D:/meizitu/test",
-				"http://s.cimg.163.com/i/bd3img.heibaimanhua.com/wp-content/uploads/2017/09/02/20170902_59aa590a59206.jpg_s.0x0.auto.jpg");
+		httpClientSpider("D:/meizitu/test",
+				"http://img.mmjpg.com/2017/1100/6.jpg");
 	}
 
 	public static void simpleSpider(String path, String urlStr) {
@@ -93,7 +92,7 @@ public class Imgtest {
 			httpGet.addHeader("upgrade-insecure-requests", "1");
 			httpGet.addHeader("accept-language", "zh-CN,zh;q=0.8");
 			httpGet.addHeader("accept-encoding", "gzip, deflate");
-			// httpGet.addHeader("referer", "http://www.mzitu.com/102138");
+			httpGet.addHeader("referer", "http://www.mmjpg.com/mm/1101");
 			CloseableHttpResponse response = httpClient.execute(httpGet);
 			System.out.println(response.getStatusLine());
 			HttpEntity entity = response.getEntity();

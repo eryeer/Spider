@@ -87,4 +87,13 @@ public class JsoupTest {
 			System.out.println(key + ":" + hm.get(key));
 		}
 	}
+
+	@Test
+	public void test4() {
+		String url = "com/home/2";
+		int lastIndexOf = url.lastIndexOf("/");
+		System.out.println(lastIndexOf);
+		String substring = url.substring(0, 8);
+		System.out.println(substring);
+	}
 }

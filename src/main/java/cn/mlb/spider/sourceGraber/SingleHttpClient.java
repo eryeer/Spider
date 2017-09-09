@@ -18,8 +18,7 @@ import org.apache.http.impl.client.HttpClients;
 public class SingleHttpClient {
 	private static HttpClient httpClient;
 	static {
-		ResourceBundle bundle = ResourceBundle
-				.getBundle("httpClient.properties");
+		ResourceBundle bundle = ResourceBundle.getBundle("httpClient");
 		String crt = bundle.getString("connectionRequestTimeOut");
 		String ct = bundle.getString("connectionTimeOut");
 		String st = bundle.getString("socketTimeout");

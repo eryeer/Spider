@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.Serializable;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
@@ -40,15 +41,21 @@ public class ImgDownloader implements Runnable {
 	 * @param path
 	 *            图片本地保存路径
 	 */
-	public ImgDownloader(String imgSrc, int folderNo, String path) {
+	public ImgDownloader(String imgSrc, Serializable folderName, String path) {
 		super();
 		this.imgSrc = imgSrc;
-		this.basePath = new StringBuffer(path + "/folder_" + folderNo);
+		this.basePath = new StringBuffer(path + "/" + folderName);
 	}
 
 	public ImgDownloader(String imgSrc, int folderNo, String path,
 			String referer) {
 		this(imgSrc, folderNo, path);
+		this.referer = referer;
+	}
+
+	public ImgDownloader(String imgSrc, String folderName, String path,
+			String referer) {
+		this(imgSrc, folderName, path);
 		this.referer = referer;
 	}
 

@@ -29,16 +29,16 @@ public class MeizituExecutor {
 		// 创建网页抓取器
 		HtmlGrabber grabber = new HtmlGrabber();
 		// 创建url数组
-		String[] urls = new String[21];
+		String[] urls = new String[1];
 		// 创建图片页链接集合
 		List<String> urlTotalList = new ArrayList<String>();
 		// 为url数组赋值
 		for (int i = 0; i < urls.length; i++) {
-			urls[i] = "http://www.meizitu.com/a/more_" + (i + 1 + 51) + ".html";
+			urls[i] = "http://www.meizitu.com/a/more_" + (i + 1 + 52) + ".html";
 		}
 		logger.info("正在获取每个索引页");
 		// 抓取索引页
-		List<String> htmls = grabber.getHtmls(urls, 10);
+		List<String> htmls = grabber.getHtmls(urls, 1000);
 		// 创建网页解析器
 		HtmlParser parser = new HtmlParser();
 		logger.info("正在获取索引页上的所有图片页链接");
@@ -51,7 +51,7 @@ public class MeizituExecutor {
 		String[] totalUrls = urlTotalList.toArray(new String[1]);
 		logger.info("正在获取每个图片页");
 		// 抓取所有图片页
-		List<String> totalHtmls = grabber.getHtmls(totalUrls, 10);
+		List<String> totalHtmls = grabber.getHtmls(totalUrls, 1000);
 		logger.info("获取完毕");
 		for (int i = 0; i < totalHtmls.size(); i++) {
 			// 解析图片页,获取图片链接集合
@@ -69,7 +69,7 @@ public class MeizituExecutor {
 			// 开启多线程下载图片
 			for (String src : srcList) {
 				Thread.sleep(1600);
-				new Thread(new ImgDownloader(src, i / 10, "D:/meizitu"))
+				new Thread(new ImgDownloader(src, i / 10, "D:/meizitu/test"))
 						.start();
 			}
 			// 间隔时间要设长一些,否则会被服务器封IP!
