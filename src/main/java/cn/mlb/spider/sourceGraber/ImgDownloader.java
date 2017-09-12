@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +29,8 @@ public class ImgDownloader implements Runnable {
 	private StringBuffer basePath;
 	// 图片防盗链
 	private String referer;
+	// 图片名
+	private String imgName;
 	private Logger logger = Logger.getLogger(ImgDownloader.class);
 
 	public ImgDownloader() {
@@ -59,6 +62,12 @@ public class ImgDownloader implements Runnable {
 		this.referer = referer;
 	}
 
+	public ImgDownloader(String imgSrc, String folderName, String path,
+			String referer, String imgName) {
+		this(imgSrc, folderName, path, referer);
+		this.imgName = imgName;
+	}
+
 	/**
 	 * 支持多线程执行下载
 	 */
@@ -72,12 +81,18 @@ public class ImgDownloader implements Runnable {
 		// UUID图片名
 		// String imgName = UUID.randomUUID().toString().replaceAll("-", "")
 		// + ".jpg";
-		String imgName = System.currentTimeMillis() + ".jpg";// 以系统时间设置图片名
+		if (StringUtils.isBlank(this.imgName)) {
+			this.imgName = System.currentTimeMillis() + ".jpg";// 以系统时间设置图片名
+		}
 		File file = new File(basePath + "/" + imgName);
+
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+		HttpGet httpGet = null;
 		try {
 			HttpClient httpClient = SingleHttpClient.getHttpClient();
 			// 创建一次get请求
-			HttpGet httpGet = new HttpGet(imgSrc);
+			httpGet = new HttpGet(imgSrc);
 			// 伪装真实浏览器设置请求头
 			httpGet.addHeader(
 					"User-Agent",
@@ -93,21 +108,32 @@ public class ImgDownloader implements Runnable {
 			logger.info(response.getStatusLine());
 			HttpEntity entity = response.getEntity();
 			// 下载图片
-			BufferedInputStream bis = new BufferedInputStream(
-					entity.getContent());
-			BufferedOutputStream bos = new BufferedOutputStream(
-					new FileOutputStream(file));
+			bis = new BufferedInputStream(entity.getContent());
+			bos = new BufferedOutputStream(new FileOutputStream(file));
 			int b;
 			while ((b = bis.read()) != -1) {
 				bos.write(b);
 			}
-
-			bis.close();
-			bos.close();
 			logger.info("第" + (count++) + "张图片：" + file.getAbsolutePath());
 		} catch (Exception e) {
 
 			e.printStackTrace();
+		} finally {
+			if (bis != null) {
+				try {
+					bis.close();
+				} catch (IOException e) {
+					logger.error(e.getMessage(), e);
+				}
+			}
+			if (bos != null) {
+				try {
+					bos.close();
+				} catch (IOException e) {
+					logger.error(e.getMessage(), e);
+				}
+			}
+			httpGet.abort();
 		}
 
 	}

@@ -57,6 +57,9 @@ public class HtmlGrabber {
 			} catch (Exception e) {
 
 				e.printStackTrace();
+			} finally {
+				httpGet.releaseConnection();
+				httpGet.abort();
 			}
 		}
 		return htmls;

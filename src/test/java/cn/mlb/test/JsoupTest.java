@@ -96,4 +96,17 @@ public class JsoupTest {
 		String substring = url.substring(0, 8);
 		System.out.println(substring);
 	}
+
+	@Test
+	public void test5() throws IOException {
+
+		Document doc = Jsoup.connect("http://www.fcw30.com/most-popular/1/")
+				.get();
+		Elements elements = doc
+				.select("#list_videos_common_videos_list_items .rating");
+		for (Element element : elements) {
+			String text = elements.text();
+			System.out.println(text);
+		}
+	}
 }

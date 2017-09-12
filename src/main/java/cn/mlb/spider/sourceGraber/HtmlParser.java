@@ -38,9 +38,8 @@ public class HtmlParser {
 		for (Element element : elements) {
 			// 获取元素中的属性
 			String content = element.attr(attr);
-			if (!attrList.contains(content)) {
-				attrList.add(content);
-			}
+			attrList.add(content);
+
 		}
 		return attrList;
 	}
@@ -53,9 +52,8 @@ public class HtmlParser {
 		for (Element element : elements) {
 			// 获取元素中的属性
 			String text = element.text();
-			if (!textList.contains(text)) {
-				textList.add(text);
-			}
+			textList.add(text);
+
 		}
 		return textList;
 	}

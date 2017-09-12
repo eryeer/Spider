@@ -21,9 +21,9 @@ public class MmjpgExecutor {
 		HtmlGrabber grabber = new HtmlGrabber();
 		// 创建图片页链接集合
 		List<String> urlTotalList = new ArrayList<String>();
-		String[] urls = new String[7];
+		String[] urls = new String[14];
 		for (int i = 0; i < urls.length; i++) {
-			urls[i] = "http://www.mmjpg.com/home/" + (i + 1 + 33);
+			urls[i] = "http://www.mmjpg.com/home/" + (i + 1 + 60);
 		}
 		logger.info("正在获取每个索引页");
 		List<String> htmls = grabber.getHtmls(urls, 100);
@@ -61,9 +61,9 @@ public class MmjpgExecutor {
 			logger.info("标题:" + ad.getTitle() + "-第" + (i + 1) + "图片页链接解析完毕");
 			// 开启多线程下载图片
 			for (String src : ad.getContents()) {
-				Thread.sleep(500);
+				Thread.sleep(480);
 				new Thread(new ImgDownloader(src, ad.getTitle(),
-						"D:/mmjpg/34-40", "http://www.mmjpg.com/mm/1101"))
+						"D:/mmjpg/61-74", "http://www.mmjpg.com/mm/1101"))
 						.start();
 			}
 			// 间隔时间要设长一些,否则会被服务器封IP!
