@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="cn.mlb.spider.mapper.AcgItemMapper">
+  	<select id="queryAllOrderByRatingDesc" resultType="AcgItem" >
+  		SELECT DISTINCT title, url from tbl_item_list ORDER BY rating desc
+  	</select>
+  
+  	<insert id="save" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+  		INSERT INTO tbl_item_list (
+				status,
+				category,
+				title,
+				url,
+				page_number,
+				icon_image_url
+		)
+		VALUES
+			(
+				#{status},
+				#{category},
+				#{title},
+				#{url},
+				#{pageNumber},
+				#{iconImageUrl}
+			);
+  	</insert>
+  
+  </mapper>

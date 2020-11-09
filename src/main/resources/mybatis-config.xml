@@ -31,5 +31,6 @@
   	
   	<mappers>
   		<mapper resource="MediaMapper.xml"/>
+  		<mapper resource="AcgItemMapper.xml"/>
   	</mappers>
   </configuration>
