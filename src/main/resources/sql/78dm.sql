@@ -22,8 +22,25 @@ CREATE TABLE `tbl_item_list` (
     version         VARCHAR(100) NOT NULL DEFAULT '' COMMENT '版本',
     material_type   VARCHAR(100) NOT NULL DEFAULT '' COMMENT '材料种类',
     toy_class       VARCHAR(100) NOT NULL DEFAULT '' COMMENT '玩具分类',
-    participator    VARCHAR(100) NOT NULL DEFAULT '' COMMENT '参与创建'
+    participator    VARCHAR(100) NOT NULL DEFAULT '' COMMENT '参与创建',
+
+    release_date    VARCHAR(100) NOT NULL DEFAULT '' COMMENT '发售时间',
+    rate            VARCHAR(100) NOT NULL DEFAULT '' COMMENT '比例',
+    spec            VARCHAR(200) NOT NULL DEFAULT '' COMMENT '规格',
+    price           VARCHAR(100) NOT NULL DEFAULT '' COMMENT '价格',
+    person_name     VARCHAR(300) NOT NULL DEFAULT '' COMMENT '人物名',
+    proto_person    VARCHAR(100) NOT NULL DEFAULT '' COMMENT '原型师',
+    number          VARCHAR(100) NOT NULL DEFAULT '' COMMENT '编号',
+    banner_image_url  VARCHAR(255) NULL COMMENT '首图地址',
 ) ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     ROW_FORMAT = DYNAMIC;
 
+ALTER TABLE `tbl_item_list` ADD COLUMN  `release_date` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '发售时间';
+ALTER TABLE `tbl_item_list` ADD COLUMN  `rate` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '发售时间';
+ALTER TABLE `tbl_item_list` ADD COLUMN  `spec` VARCHAR(200) NOT NULL DEFAULT '' COMMENT '发售时间';
+ALTER TABLE `tbl_item_list` ADD COLUMN  `price` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '发售时间';
+ALTER TABLE `tbl_item_list` ADD COLUMN  `person_name` VARCHAR(300) NOT NULL DEFAULT '' COMMENT '发售时间';
+ALTER TABLE `tbl_item_list` ADD COLUMN  `proto_person` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '发售时间';
+ALTER TABLE `tbl_item_list` ADD COLUMN  `number` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '发售时间';
+ALTER TABLE `tbl_item_list` ADD COLUMN  `banner_image_url` VARCHAR(255) NULL COMMENT '首图地址';

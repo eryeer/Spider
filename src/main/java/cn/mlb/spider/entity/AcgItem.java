@@ -28,30 +28,80 @@ public class AcgItem implements Serializable {
     private String materialType;
     private String toyClass;
     private String participator;
+    private String releaseDate;
+    private String rate;
+    private String spec;
+    private String price;
+    private String personName;
+    private String protoPerson;
+    private String number;
+    private String bannerImageUrl;
 
-    @Override
-    public String toString() {
-        return "AcgItem{" +
-                "id=" + id +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", status='" + status + '\'' +
-                ", category='" + category + '\'' +
-                ", title='" + title + '\'' +
-                ", url='" + url + '\'' +
-                ", pageNumber=" + pageNumber +
-                ", iconImageUrl='" + iconImageUrl + '\'' +
-                ", producer='" + producer + '\'' +
-                ", series='" + series + '\'' +
-                ", level='" + level + '\'' +
-                ", name='" + name + '\'' +
-                ", version='" + version + '\'' +
-                ", materialType='" + materialType + '\'' +
-                ", toyClass='" + toyClass + '\'' +
-                ", participator='" + participator + '\'' +
-                '}';
+
+
+    public String getBannerImageUrl() {
+        return bannerImageUrl;
     }
 
+    public void setBannerImageUrl(String bannerImageUrl) {
+        this.bannerImageUrl = bannerImageUrl;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    public String getSpec() {
+        return spec;
+    }
+
+    public void setSpec(String spec) {
+        this.spec = spec;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+
+    public String getProtoPerson() {
+        return protoPerson;
+    }
+
+    public void setProtoPerson(String protoPerson) {
+        this.protoPerson = protoPerson;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
+    }
     public void setId(Integer id) {
         this.id = id;
     }
@@ -188,6 +238,34 @@ public class AcgItem implements Serializable {
         this.participator = participator;
     }
 
-
-
+    @Override
+    public String toString() {
+        return "AcgItem{" +
+                "id=" + id +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", status='" + status + '\'' +
+                ", category='" + category + '\'' +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", pageNumber=" + pageNumber +
+                ", iconImageUrl='" + iconImageUrl + '\'' +
+                ", producer='" + producer + '\'' +
+                ", series='" + series + '\'' +
+                ", level='" + level + '\'' +
+                ", name='" + name + '\'' +
+                ", version='" + version + '\'' +
+                ", materialType='" + materialType + '\'' +
+                ", toyClass='" + toyClass + '\'' +
+                ", participator='" + participator + '\'' +
+                ", releaseDate='" + releaseDate + '\'' +
+                ", rate='" + rate + '\'' +
+                ", spec='" + spec + '\'' +
+                ", price='" + price + '\'' +
+                ", personName='" + personName + '\'' +
+                ", protoPerson='" + protoPerson + '\'' +
+                ", number='" + number + '\'' +
+                ", bannerImageUrl='" + bannerImageUrl + '\'' +
+                '}';
+    }
 }

@@ -11,4 +11,11 @@ public interface AcgItemMapper {
 
 	List<AcgItem> queryAllOrderByRatingDesc();
 
+    AcgItem getFirstIncompleteItem();
+
+    void update(AcgItem item);
+
+    AcgItem getFirstIncompleteItemByCategory(String category);
+
+    List<AcgItem> queryAcgItemByCategory(String category);
 }

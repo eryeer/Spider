@@ -6,6 +6,18 @@
   	<select id="queryAllOrderByRatingDesc" resultType="AcgItem" >
   		SELECT DISTINCT title, url from tbl_item_list ORDER BY rating desc
   	</select>
+
+    <select id="getFirstIncompleteItem" resultType="AcgItem" >
+  		SELECT * from tbl_item_list where status ='0' order by id limit 0, 1;
+  	</select>
+
+    <select id="getFirstIncompleteItemByCategory" resultType="AcgItem" >
+  		SELECT * from tbl_item_list where status ='0' and category = #{category} order by id limit 0, 1;
+  	</select>
+
+    <select id="queryAcgItemByCategory" resultType="AcgItem" >
+  		SELECT * from tbl_item_list where category = #{category}
+  	</select>
   
   	<insert id="save" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
   		INSERT INTO tbl_item_list (
@@ -26,5 +38,65 @@
 				#{iconImageUrl}
 			);
   	</insert>
-  
-  </mapper>
+
+
+    <update id="update" parameterType="AcgItem">
+    UPDATE tbl_item_list
+    <set>
+        <if test="status != null">
+            status = #{status},
+        </if>
+        <if test="producer != null">
+            producer = #{producer},
+        </if>
+        <if test="series != null">
+            series = #{series},
+        </if>
+        <if test="level != null">
+            level = #{level},
+        </if>
+        <if test="name != null">
+            name = #{name},
+        </if>
+        <if test="version != null">
+            version = #{version},
+        </if>
+        <if test="materialType != null">
+            material_type = #{materialType},
+        </if>
+        <if test="toyClass != null">
+            toy_class = #{toyClass},
+        </if>
+        <if test="participator != null">
+            participator = #{participator},
+        </if>
+        <if test="releaseDate != null">
+            release_date = #{releaseDate},
+        </if>
+        <if test="rate != null">
+            rate = #{rate},
+        </if>
+        <if test="spec != null">
+            spec = #{spec},
+        </if>
+        <if test="price != null">
+            price = #{price},
+        </if>
+        <if test="personName != null">
+            person_name = #{personName},
+        </if>
+        <if test="protoPerson != null">
+            proto_person = #{protoPerson},
+        </if>
+        <if test="number != null">
+            number = #{number},
+        </if>
+        <if test="bannerImageUrl != null">
+            banner_image_url = #{bannerImageUrl},
+        </if>
+    </set>
+    WHERE id = #{id}
+    </update>
+
+
+</mapper>
