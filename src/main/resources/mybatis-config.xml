@@ -30,7 +30,8 @@
   	</environments>
   	
   	<mappers>
-  		<mapper resource="MediaMapper.xml"/>
-  		<mapper resource="AcgItemMapper.xml"/>
+  		<mapper resource="mapper/MediaMapper.xml"/>
+  		<mapper resource="mapper/AcgItemMapper.xml"/>
+  		<mapper resource="mapper/AcgFactoryMapper.xml"/>
   	</mappers>
   </configuration>

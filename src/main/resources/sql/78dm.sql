@@ -31,7 +31,7 @@ CREATE TABLE `tbl_item_list` (
     person_name     VARCHAR(300) NOT NULL DEFAULT '' COMMENT '人物名',
     proto_person    VARCHAR(100) NOT NULL DEFAULT '' COMMENT '原型师',
     number          VARCHAR(100) NOT NULL DEFAULT '' COMMENT '编号',
-    banner_image_url  VARCHAR(255) NULL COMMENT '首图地址',
+    banner_image_url  VARCHAR(255) NULL COMMENT '首图地址'
 ) ENGINE = InnoDB
     DEFAULT CHARSET = utf8mb4
     ROW_FORMAT = DYNAMIC;
@@ -44,3 +44,20 @@ ALTER TABLE `tbl_item_list` ADD COLUMN  `person_name` VARCHAR(300) NOT NULL DEFA
 ALTER TABLE `tbl_item_list` ADD COLUMN  `proto_person` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '发售时间';
 ALTER TABLE `tbl_item_list` ADD COLUMN  `number` VARCHAR(100) NOT NULL DEFAULT '' COMMENT '发售时间';
 ALTER TABLE `tbl_item_list` ADD COLUMN  `banner_image_url` VARCHAR(255) NULL COMMENT '首图地址';
+
+DROP TABLE IF EXISTS `tbl_factory_list`;
+CREATE TABLE `tbl_factory_list` (
+    id                INT   AUTO_INCREMENT PRIMARY KEY,
+    create_time       DATETIME DEFAULT CURRENT_TIMESTAMP                             NOT NULL,
+    update_time       DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
+    status            VARCHAR(20) DEFAULT ''                                         NOT NULL COMMENT '0:列表插入，1：已爬完',
+    title             VARCHAR(100) NOT NULL COMMENT '标题名称',
+    url               VARCHAR(255) NOT NULL DEFAULT '' COMMENT '详情页url',
+    introduce         VARCHAR(500) NOT NULL DEFAULT '' COMMENT '简介',
+    type              VARCHAR(200) NOT NULL DEFAULT '' COMMENT '类型',
+    creator           VARCHAR(200) NOT NULL DEFAULT '' COMMENT '参与创建',
+    series            VARCHAR(1000) NOT NULL DEFAULT '' COMMENT '玩具系列',
+    banner_image_url  VARCHAR(255) NULL COMMENT '首图地址'
+) ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4
+    ROW_FORMAT = DYNAMIC;
